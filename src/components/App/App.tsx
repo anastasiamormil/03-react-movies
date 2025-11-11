@@ -7,6 +7,7 @@ import type { Movie } from "../../types/movie";
 import { useState } from "react";
 import fetchMovies from "../../services/movieService";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Loader from "../Loader/Loader";
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,6 +50,8 @@ export default function App() {
 
       {error ? (
         <ErrorMessage />
+      ) : loading ? (
+        <Loader />
       ) : (
         movies.length > 0 && (
           <MovieGrid movies={movies} onSelect={handleSelectMovie} />
