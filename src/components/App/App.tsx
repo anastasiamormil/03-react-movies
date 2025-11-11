@@ -13,9 +13,11 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [loading, setLoading] = useState(false);
   const handleSearch = async (query: string) => {
     try {
       setError(false);
+      setLoading(true);
       const results = await fetchMovies(query);
       if (!results || results.length === 0) {
         toast.error("No movies found for your request.");
@@ -27,6 +29,8 @@ export default function App() {
       console.error("Error fetching movies:", error);
       setError(true); //
       setMovies([]);
+    } finally {
+      setLoading(false);
     }
   };
 
